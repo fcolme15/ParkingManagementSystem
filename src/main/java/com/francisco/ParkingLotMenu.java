@@ -13,7 +13,7 @@ public class ParkingLotMenu {
 
     private int parkingLotCapacity;
 
-    ParkingLotMenu(ParkingLot parkingLot) {
+    ParkingLotMenu() {
         this.parkingLot = null;
         this.scanner = new Scanner(System.in);
         this.menuOption = null;
@@ -32,7 +32,9 @@ public class ParkingLotMenu {
             inputInt = scanner.nextInt();
             scanner.nextLine();
             menuOption = MenuOptions.fromInt(inputInt);
-
+            if (menuOption == null){
+                System.out.println("null option");
+            }
             switch(menuOption){
                 case PARK:
                     parkCar();
@@ -45,20 +47,22 @@ public class ParkingLotMenu {
                     break;
                 case PRINT:
                     parkingLot.printParkingLot();
+                    break;
                 case SAVELOT:
                     System.out.println("Please type the file name: ");
                     inputString = scanner.nextLine().trim();
                     fileManager.saveParkingLot(inputString, parkingLot);
+                    break;
                 case EXIT:
                     inputString = "exit";
                     break;
-                default:
+                case NONE:
                     System.out.println("Invalid option");
                     System.out.println("Please try again");
                     System.out.println();
                     break;
             }
-        } while(inputString.equalsIgnoreCase("exit"));
+        } while(!inputString.equalsIgnoreCase("exit"));
     }
 
     private void printMenu(){
@@ -68,7 +72,8 @@ public class ParkingLotMenu {
         System.out.println("2. Remove a parked car");
         System.out.println("3. Search for a cars parking lot ID");
         System.out.println("4. Print parking lot");
-        System.out.println("5. Exit");
+        System.out.println("5. Save Parking Lot");
+        System.out.println("6. Exit");
         System.out.println("Selection: ");
     }
 
@@ -117,9 +122,12 @@ public class ParkingLotMenu {
         licensePlate = scanner.nextLine().trim();
         System.out.println("Enter the vehicle size: ");
         System.out.println("1.) Small(Small/Compact) 2.) Large(Full-Sized) 3.) Oversize(SUV/Truck)");
-        vehicleSize = VehicleSize.fromInt(scanner.nextInt());
+        int size = scanner.nextInt();
         scanner.nextLine();
-
+        vehicleSize = VehicleSize.fromInt(size);
+        if (vehicleSize == null){
+            System.out.println("Coming out as null");
+        }
         System.out.println("Enter more Car information? (Y/N)");
         inputString = scanner.nextLine().trim();
         if (inputString.equalsIgnoreCase("Y")) {
@@ -167,6 +175,7 @@ public class ParkingLotMenu {
 
         String result = parkingLot.removeVehicle(inputInt);
         System.out.println(result);
+        System.out.println();
     }
 
     private void searchCar(){
@@ -182,6 +191,9 @@ public class ParkingLotMenu {
             inputString = scanner.nextLine().trim();
 
             parkingLot = fileManager.getParkingLot(inputString);
+            if (parkingLot == null){
+                System.out.println("Error object not found");
+            }
             parkingLot.printParkingLot();
             System.out.println();
         }

@@ -11,12 +11,15 @@ public class FileManager {
 
     private Gson gson;
     private ParkingLot parkingLot;
+    private String path = "src/main/resources/";
 
     FileManager(){
         gson = new Gson();
     }
 
     public ParkingLot getParkingLot(String fileName){
+        fileName = path + fileName + ".json";
+
         try (FileReader fileReader = new FileReader(fileName)) {
             System.out.println("Parking lot loaded from " + fileName);
             System.out.println();
@@ -34,8 +37,10 @@ public class FileManager {
     }
 
     public void saveParkingLot(String fileName, ParkingLot parkingLot){
+        fileName = path + fileName + ".json";
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             String json = gson.toJson(parkingLot);
+            fileWriter.write(json);
         }
         catch(IOException e){
             System.out.println("Error writing to file." + e.getMessage());

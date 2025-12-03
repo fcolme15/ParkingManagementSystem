@@ -76,6 +76,7 @@ public class ParkingLot {
                 }
 
                 smallSpots.set(spotId, car);
+                car.setSlotId(spotId); //Set car obj to know its spotId
                 smallSpotsTaken++;
                 break;
             case LARGE:
@@ -88,6 +89,7 @@ public class ParkingLot {
                 }
 
                 largeSpots.set(spotId, car);
+                car.setSlotId(spotId + smallSpotsCapacity); //Set car obj to know its spotId
                 largeSpotsTaken++;
                 break;
             case OVERSIZE:
@@ -100,11 +102,12 @@ public class ParkingLot {
                 }
 
                 oversizeSpots.set(spotId, car);
+                car.setSlotId(spotId + smallSpotsCapacity + largeSpotsCapacity); //Set car obj to know its spotId
                 oversizeSpotsTaken++;
                 break;
         }
 
-        car.setSlotId(spotId); //Set car obj to know its spotId
+
         return car.toString() + " has been parked at " + spotId;
     }
 
@@ -159,12 +162,18 @@ public class ParkingLot {
 
         if (spotId < smallSpotsCapacity){
             carRemoved = smallSpots.get(spotId);
+            smallSpots.set(spotId, null);
+            smallSpotsTaken--;
         }
         else if (spotId < smallSpotsCapacity + largeSpotsCapacity){
             carRemoved = largeSpots.get(spotId - smallSpotsCapacity);
+            largeSpots.set(spotId - smallSpotsCapacity, null);
+            largeSpotsTaken--;
         }
         else {
             carRemoved = oversizeSpots.get(spotId - smallSpotsCapacity - largeSpotsCapacity);
+            oversizeSpots.set(spotId - smallSpotsCapacity - largeSpotsCapacity, null);
+            oversizeSpotsTaken--;
         }
 
         if (carRemoved == null) {
@@ -176,23 +185,45 @@ public class ParkingLot {
     }
 
     public void printParkingLot(){
+        System.out.println("Parking Lot Current State Printed");
+        System.out.println("VehicleSpotSize-ID -> Empty or LicensePlate");
+
         int spotsInRow = 5;
         List<Car> currentLot = smallSpots;
         char spotType = 'S';
+        String spotStatus;
 
         for (int spotId = 0; spotId < parkingLotCapacity; spotId++){
             if (currentLot == smallSpots && spotId >= smallSpotsCapacity){
                 currentLot = largeSpots;
                 spotType = 'L';
             }
-            else if (currentLot == largeSpots && spotId >= largeSpotsCapacity){
+            else if (currentLot == largeSpots && spotId >= smallSpotsCapacity + largeSpotsCapacity){
                 currentLot = oversizeSpots;
                 spotType = 'O';
             }
 
-            String spotStatus = currentLot.get(spotId) == null ? "Empty" : currentLot.get(spotId).getLicensePlate();
-            System.out.printf("%c-%d-3d -> %s-10s", spotType, spotId, spotStatus);
+
+            if (spotType == 'S') {
+                spotStatus = currentLot.get(spotId) == null ? "Empty" : currentLot.get(spotId).getLicensePlate();
+            }
+            else if (spotType == 'L'){
+                spotStatus = currentLot.get(spotId - smallSpotsCapacity) == null ? "Empty" : currentLot.get(spotId - smallSpotsCapacity).getLicensePlate();
+            }
+            else{
+                spotStatus = currentLot.get(spotId - smallSpotsCapacity - largeSpotsCapacity) == null ? "Empty" : currentLot.get(spotId - smallSpotsCapacity - largeSpotsCapacity).getLicensePlate();
+            }
+
+            if (spotId > 0 && spotId % spotsInRow == 0){
+                System.out.println();
+            }
+
+            System.out.printf("%c-%-3d -> %-10s", spotType, spotId, spotStatus);
+
+
         }
+        System.out.println();
+        System.out.println();
     }
 
     private Map<String, Integer> findNumberOfSpots() {

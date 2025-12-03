@@ -15,7 +15,7 @@ public enum VehicleSize{
     public static VehicleSize fromInt(int input){
         VehicleSize[] sizes = VehicleSize.values();
 
-        if (input >= 0 && input < sizes.length){ //Check bounds
+        if (input >= 0 && input <= sizes.length){ //Check bounds
             return sizes[input - 1];
         }
         return null;

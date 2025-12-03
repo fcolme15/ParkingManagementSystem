@@ -6,7 +6,8 @@ public enum MenuOptions{
     SEARCH(3),
     PRINT(4),
     SAVELOT(5),
-    EXIT(6);
+    EXIT(6),
+    NONE(7);
 
     private final int option;
 
@@ -18,10 +19,10 @@ public enum MenuOptions{
     public static MenuOptions fromInt(int input){
         MenuOptions[] options = MenuOptions.values();
 
-        if (input >= 0 && input < options.length){ //Check bounds
+        if (input >= 0 && input <= options.length){ //Check bounds
             return options[input - 1];
         }
-        return null;
+        return NONE;
     }
 
 
