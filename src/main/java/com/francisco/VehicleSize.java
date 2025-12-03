@@ -11,7 +11,13 @@ public enum VehicleSize{
         this.size = size;
     }
 
-    public int getSize(){
-        return this.size;
+    //Convert the integer input into Enum representation
+    public static VehicleSize fromInt(int input){
+        VehicleSize[] sizes = VehicleSize.values();
+
+        if (input >= 0 && input < sizes.length){ //Check bounds
+            return sizes[input - 1];
+        }
+        return null;
     }
 }

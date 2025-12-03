@@ -5,7 +5,8 @@ public enum MenuOptions{
     REMOVE(2),
     SEARCH(3),
     PRINT(4),
-    EXIT(5);
+    SAVELOT(5),
+    EXIT(6);
 
     private final int option;
 
