@@ -117,10 +117,10 @@ public class ParkingLot {
         switch (vehicleSize){
             case SMALL:
                 if (spotId >= smallSpotsCapacity){
-                    throw new IllegalArgumentException("Parking spot Id selected not correct for the car size: Small");
+                    throw new IllegalArgumentException("Parking spot ID selected not correct for the car size: Small");
                 }
                 else if (smallSpots.get(spotId) != null){
-                    throw new IllegalArgumentException("Parking spot Id selected is taken");
+                    throw new IllegalArgumentException("Parking spot ID selected is taken");
                 }
 
                 smallSpots.set(spotId, car);
@@ -128,10 +128,10 @@ public class ParkingLot {
                 break;
             case LARGE:
                 if (spotId < smallSpotsCapacity || spotId >= smallSpotsCapacity + largeSpotsCapacity){
-                    throw new IllegalArgumentException("Parking spot Id selected not correct for the car size: Large");
+                    throw new IllegalArgumentException("Parking spot ID selected not correct for the car size: Large");
                 }
                 else if (largeSpots.get(spotId - smallSpotsCapacity) != null){
-                    throw new IllegalArgumentException("Parking spot Id selected is taken");
+                    throw new IllegalArgumentException("Parking spot ID selected is taken");
                 }
 
                 largeSpots.set(spotId - smallSpotsCapacity, car);
@@ -139,10 +139,10 @@ public class ParkingLot {
                 break;
             case OVERSIZE:
                 if (spotId < smallSpotsCapacity + largeSpotsCapacity){
-                    throw new IllegalArgumentException("Parking spot Id selected not correct for the car size: Oversize");
+                    throw new IllegalArgumentException("Parking spot ID selected not correct for the car size: Oversize");
                 }
                 else if (largeSpots.get(spotId - smallSpotsCapacity - largeSpotsCapacity) != null){
-                    throw new IllegalArgumentException("Parking spot Id selected is taken");
+                    throw new IllegalArgumentException("Parking spot ID selected is taken");
                 }
 
                 oversizeSpots.set(spotId - smallSpotsCapacity - largeSpotsCapacity, car);
@@ -168,7 +168,7 @@ public class ParkingLot {
         }
 
         if (carRemoved == null) {
-            return "No car is in the parking spot with Id: " + spotId;
+            return "No car is in the parking spot with ID: " + spotId;
         }
         else {
             return carRemoved.toString() + " has been removed";
