@@ -50,7 +50,8 @@ public class ParkingLotMenu {
                     removeCar();
                     break;
                 case SEARCH:
-                    searchCar();
+                    //TODO: Implement search class and function to run it
+                    //searchCar();
                     break;
                 case PRINT:
                     parkingLot.printParkingLot();
