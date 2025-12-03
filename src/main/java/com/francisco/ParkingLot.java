@@ -267,6 +267,18 @@ public class ParkingLot {
         return oversizeSpotsCapacity;
     }
 
+    public int getSmallSpotsTaken() {
+        return smallSpotsTaken;
+    }
+
+    public int getLargeSpotsTaken() {
+        return largeSpotsTaken;
+    }
+
+    public int getOversizeSpotsTaken() {
+        return oversizeSpotsTaken;
+    }
+
     public List<Car> getSmallSpots() {
         return smallSpots;
     }

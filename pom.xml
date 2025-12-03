@@ -38,6 +38,15 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.2</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
+                    <mainClass>com.francisco.Main</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     
