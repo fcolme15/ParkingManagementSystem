@@ -1,5 +1,6 @@
 package com.francisco;
 
+//Enum that holds the sizes of the cars for better representation
 public enum VehicleSize{
     SMALL(1),
     LARGE(2),

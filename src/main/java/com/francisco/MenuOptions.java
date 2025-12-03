@@ -1,5 +1,6 @@
 package com.francisco;
 
+//Simple enum that has all the menu options for the parking lot flow
 public enum MenuOptions{
     PARK(1),
     REMOVE(2),

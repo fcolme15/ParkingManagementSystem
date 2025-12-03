@@ -49,7 +49,7 @@ public class Car {
         return ownerName + "'s car: " + make + " " + model + " " + year;
     }
 
-    //Class Getters:
+    //Class Getters - Mainly intended for the search feature not implemented yet:
 
     public VehicleSize getVehicleSize() {
         return vehicleSize;

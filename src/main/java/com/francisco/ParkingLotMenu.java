@@ -10,9 +10,9 @@ public class ParkingLotMenu {
     private String inputString;
     private int inputInt;
     private MenuOptions menuOption;
-
     private int parkingLotCapacity;
 
+    //Constructor instantiating variables
     ParkingLotMenu() {
         this.parkingLot = null;
         this.scanner = new Scanner(System.in);
@@ -20,10 +20,14 @@ public class ParkingLotMenu {
         fileManager = new FileManager();
     }
 
+    //Loop that never stops until parking lot program is closed
     public void run(){
         System.out.println("Welcome to the Parking Lot Management System");
 
+        //Load a saved or instantiate a new parking lot
         loadInitialParkingLot();
+
+        //Get the parking lot capacity from new or loaded parking lot
         parkingLotCapacity = parkingLot.getParkingLotCapacity();
 
 
@@ -31,10 +35,13 @@ public class ParkingLotMenu {
             printMenu();
             inputInt = scanner.nextInt();
             scanner.nextLine();
+
+            //Convert input into menu option
             menuOption = MenuOptions.fromInt(inputInt);
             if (menuOption == null){
-                System.out.println("null option");
+                menuOption = MenuOptions.NONE;
             }
+
             switch(menuOption){
                 case PARK:
                     parkCar();
@@ -77,6 +84,7 @@ public class ParkingLotMenu {
         System.out.println("Selection: ");
     }
 
+    //Get the car object then park it with auto system or manual choice
     private void parkCar(){
         Car newCar = buildCar();
 
@@ -91,7 +99,7 @@ public class ParkingLotMenu {
         }
 
         String result;
-        if (inputInt == -1) {
+        if (inputInt == -1) { //Automatic input into first available spot
             try{
                 result = parkingLot.parkCar(newCar);
                 System.out.println(result);
@@ -100,7 +108,7 @@ public class ParkingLotMenu {
                 System.out.println(e.getMessage());
             }
         }
-        else{
+        else{ //Park the car at the given ID spot
             try{
                 result = parkingLot.parkCar(newCar, inputInt);
                 System.out.println(result);
@@ -112,6 +120,7 @@ public class ParkingLotMenu {
 
     }
 
+    //Simple prompt control flow to get all car info and build object
     private Car buildCar(){
         String ownerName, licensePlate;
         VehicleSize vehicleSize;
@@ -162,6 +171,7 @@ public class ParkingLotMenu {
         }
     }
 
+    //Remove the car using the given parking lot ID chosen
     private void removeCar(){
         System.out.println("Enter the parking lot ID number to remove the car");
         inputInt = scanner.nextInt();
@@ -178,10 +188,7 @@ public class ParkingLotMenu {
         System.out.println();
     }
 
-    private void searchCar(){
-
-    }
-
+    //Load a saved parking lot or make a new one with a given user size
     private void loadInitialParkingLot(){
         System.out.println("Would you like to load in a saved Parking Lot? (Y/N) ");
         inputString = scanner.nextLine().trim();

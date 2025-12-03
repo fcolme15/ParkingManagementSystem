@@ -17,6 +17,8 @@ public class FileManager {
         gson = new Gson();
     }
 
+    //Opens the given file name and extracts the parking lot stored.
+    //Returns null if error found
     public ParkingLot getParkingLot(String fileName){
         fileName = path + fileName + ".json";
 
@@ -30,12 +32,13 @@ public class FileManager {
             parkingLot = null;
         }
         catch (IOException e){
-            System.out.println("Error reading file." + e.getMessage());
+            System.out.println("Error reading file. " + e.getMessage());
             parkingLot = null;
         }
         return parkingLot;
     }
 
+    //Saves the given parking lot object to the given file name as a json file
     public void saveParkingLot(String fileName, ParkingLot parkingLot){
         fileName = path + fileName + ".json";
         try (FileWriter fileWriter = new FileWriter(fileName)) {
